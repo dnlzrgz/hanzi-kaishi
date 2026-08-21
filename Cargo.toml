@@ -1,0 +1,14 @@
+[package]
+name = "hanzi-kaishi"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.6.6", features = ["derive"] }
+scraper = "0.27.0"
+anyhow = "1.0.104"
+reqwest = { version = "0.13.4", features = ["stream", "blocking", "brotli"] }
+url = "2.5.8"
+genanki-rs = "0.4.0"
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
