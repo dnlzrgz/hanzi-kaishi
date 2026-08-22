@@ -58,3 +58,7 @@ Each note contains the word, its pinyin and meaning, an example sentence with it
 > This project retrieves vocabulary, sentences, and audio from external websites. Keep in mind that the availability and structure of those websites can change, which may cause the scraper to stop working.
 
 - [WordBrush](https://wordbrushchinese.com)
+
+## License
+ 
+This project is licensed under the [MIT License](LICENSE).
