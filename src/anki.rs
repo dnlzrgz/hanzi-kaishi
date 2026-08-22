@@ -1,7 +1,8 @@
 use std::path::Path;
 
-use anyhow::{Ok, Context, Result};
+use anyhow::{Context, Ok, Result};
 use genanki_rs::{Deck, Field, Model, Package, Template};
+use tracing::debug;
 
 use crate::models::Flashcard;
 
@@ -78,7 +79,7 @@ pub fn create_model(model_id: i64, model_name: &str) -> Model {
             Field::new("Notes"),
         ],
         vec![
-            Template::new("Chinese Card")
+            Template::new(model_name)
                 .qfmt(
                     r#"
                     <div lang="zh-CN">
@@ -138,6 +139,8 @@ pub fn create_deck(deck_id: i64, deck_name: &str) -> Deck {
 }
 
 pub fn build_deck(deck: &mut Deck, flashcards: &[Flashcard], model: &Model) -> Result<()> {
+    debug!(count = flashcards.len(), "adding notes to deck");
+
     for card in flashcards {
         deck.add_note(card.to_note(model)?);
     }
@@ -146,6 +149,11 @@ pub fn build_deck(deck: &mut Deck, flashcards: &[Flashcard], model: &Model) -> R
 }
 
 pub fn write_apkg(deck: Deck, media_files: &[String], output: &Path) -> Result<()> {
+    debug!(
+        count = media_files.len(),
+        "bundling media files into package"
+    );
+
     let media_files: Vec<&str> = media_files.iter().map(String::as_str).collect();
     let output_path = output
         .to_str()

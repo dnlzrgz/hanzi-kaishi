@@ -25,12 +25,21 @@ pub struct Sentence {
 
 impl Flashcard {
     pub fn to_note(&self, model: &Model) -> Result<Note> {
-        let sentence_hanzi = self.sentence.as_ref().map_or("", |s| &s.hanzi.as_str());
-        let sentence_pinyin = self.sentence.as_ref().map_or("", |s| &s.pinyin.as_str());
-        let sentence_meaning = self.sentence.as_ref().map_or("", |s| &s.meaning.as_str());
+        let sentence_hanzi = self.sentence.as_ref().map_or("", |s| s.hanzi.as_str());
+        let sentence_pinyin = self.sentence.as_ref().map_or("", |s| s.pinyin.as_str());
+        let sentence_meaning = self.sentence.as_ref().map_or("", |s| s.meaning.as_str());
 
-        let word_audio = self.audio_filename.as_ref().map(|f| format!("[sound:{f}]")).unwrap_or_default();
-        let sentence_audio = self.sentence.as_ref().and_then(|s| s.audio_filename.as_deref()).map(|f| format!("[sound:{f}]")).unwrap_or_default();
+        let word_audio = self
+            .audio_filename
+            .as_ref()
+            .map(|f| format!("[sound:{f}]"))
+            .unwrap_or_default();
+        let sentence_audio = self
+            .sentence
+            .as_ref()
+            .and_then(|s| s.audio_filename.as_deref())
+            .map(|f| format!("[sound:{f}]"))
+            .unwrap_or_default();
 
         let tag = self.hsk_level.map(|level| format!("HSK::HSK{level}"));
         let tags = tag.as_deref().map(|tag| vec![tag]);
