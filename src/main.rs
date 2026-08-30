@@ -61,7 +61,7 @@ fn init_tracing(verbose: u8) {
     let directive = match verbose {
         0 => "hanzi_kaishi=info",
         1 => "hanzi_kaishi=debug",
-        _ => "hazi_kaishi=trace",
+        _ => "hanzi_kaishi=trace",
     };
 
     let filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new(directive));
@@ -93,9 +93,9 @@ fn main() -> Result<()> {
 
     merge_flashcards_with_sentences(&mut flashcards, &sentences);
 
-    let model = anki::create_model(args.model_id, &args.model_name);
+    let vocab_model = anki::create_vocabulary_model(args.model_id, &args.model_name);
     let mut deck = anki::create_deck(args.deck_id, &args.deck_name);
-    build_deck(&mut deck, &flashcards, &model)?;
+    build_deck(&mut deck, &flashcards, &vocab_model)?;
 
     let media_files = collect_media_paths(&flashcards, media_dir);
     anki::write_apkg(deck, &media_files, &args.output)?;

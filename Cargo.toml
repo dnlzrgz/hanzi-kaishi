@@ -1,6 +1,6 @@
 [package]
 name = "hanzi-kaishi"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 authors = ["dnlzrgz <contact@dnlzrgz.com>"]
 description = "A CLI for building a custom Chinese Anki deck from vocabulary, sentences, and audio scraped from the web."
