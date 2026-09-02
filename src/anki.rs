@@ -305,8 +305,7 @@ pub fn build_deck<T: TryIntoNote>(deck: &mut Deck, flashcards: &[T], model: &Mod
 pub fn write_apkg(decks: Vec<Deck>, media_files: &[String], output: &Path) -> Result<()> {
     debug!(
         deck_count = decks.len(),
-        total_card_count = media_files.len(),
-        "bundling deck and media files into package"
+        "bundling decks and media files into package"
     );
 
     let media_files: Vec<&str> = media_files.iter().map(String::as_str).collect();
