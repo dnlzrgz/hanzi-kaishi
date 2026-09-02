@@ -1,9 +1,9 @@
 [package]
 name = "hanzi-kaishi"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2024"
 authors = ["dnlzrgz <contact@dnlzrgz.com>"]
-description = "A CLI for building a custom Chinese Anki deck from vocabulary, sentences, and audio scraped from the web."
+description = "A CLI for building custom Chinese Anki decks from vocabulary, sentences, and audio scraped from the web."
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/dnlzrgz/hanzi-kaishi"

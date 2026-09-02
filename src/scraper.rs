@@ -7,7 +7,7 @@ use tracing::{debug, warn};
 use url::Url;
 
 use crate::{
-    models::{Flashcard, Sentence},
+    models::{Sentence, VocabFlashcard},
     utils::download_media,
 };
 
@@ -24,8 +24,8 @@ impl WordbrushScraper {
         })
     }
 
-    pub fn get_words(&self) -> Result<Vec<Flashcard>> {
-        let mut flashcards: Vec<Flashcard> = Vec::new();
+    pub fn get_words(&self) -> Result<Vec<VocabFlashcard>> {
+        let mut flashcards: Vec<VocabFlashcard> = Vec::new();
 
         for level in [1i8, 2, 3] {
             debug!(level, "fetching word list");
@@ -35,7 +35,7 @@ impl WordbrushScraper {
 
             let document = Html::parse_document(&body);
             let table_selector = Selector::parse("table").expect("hardcored selector is valid");
-            let row_selector = Selector::parse("tr").expect("hardcored selector is valid");
+            let row_selector = Selector::parse("tr:has(td)").expect("hardcored selector is valid");
             let cell_selector = Selector::parse("td").expect("hardcoded selector is valid");
             let button_selector =
                 Selector::parse("button.play").expect("hardcored selector is valid");
@@ -63,7 +63,7 @@ impl WordbrushScraper {
                     .and_then(|src| self.base_url.join(src).ok())
                     .map(|url| url.to_string());
 
-                flashcards.push(Flashcard {
+                flashcards.push(VocabFlashcard {
                     hanzi,
                     pinyin,
                     meaning,
@@ -148,7 +148,7 @@ impl WordbrushScraper {
 
     pub fn download_words_audio(
         &self,
-        flashcards: &mut [Flashcard],
+        flashcards: &mut [VocabFlashcard],
         media_dir: &Path,
         overwrite: bool,
     ) {
